@@ -163,6 +163,7 @@ async function handleRow(row) {
     // ตัวอย่าง: เก็บ paid_at ด้วย
     await db.transaction(async trx => {
       await updateStatus(trx, id, ['WAIT_PAYMENT', 'WAITPAYMENT'], 'ACTIVE', {
+        expired_date: dayjs().add(1, 'month').format('YYYY-MM-DD HH:mm:ss'),
         paid_at: trx.fn.now(),
       });
     });
